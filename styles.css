@@ -1,33 +1,9 @@
-h1{
-    text-align: center;
-}
-.form-group{
-    
-}
-.form-input{
-    width: 60%;
-    padding: 8px;
-    margin-top: 12px;
-    border-radius: 5px;
-}
-
-.table{
-    border-collapse: collapse;
-    width: 72%;
-    margin-top: 49px;
-    margin-left: 74px;   
-}
-
-.table thead tr{
-    text-align: left;
-}
-.table thead tr th{
-    padding: 12px;
-}
-.table td{
-    padding: 12px;
-    background-color: #ddd;
-}
-.delete{
-    color: red;
-}
+body {
+      padding: 20px;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .delete {
+      cursor: pointer;
+    }
