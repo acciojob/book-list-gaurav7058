@@ -1,38 +1,28 @@
-//your JS code here. If required.
 let form_group=document.getElementsByClassName("form-input");
 let addBook=document.getElementById("submit")
-
-let title_input=document.getElementById("title")
-let author_input=document.getElementById("author")
-let isbn_input=document.getElementById("isbn")
-
+let title_input=document.getElementById("title").value
+let author_input=document.getElementById("author").value
+let isbn_input=document.getElementById("isbn").value
 let book_list=document.getElementById("book-list")
+let table=document.querySelector(".table")
 addBook.addEventListener("click",(e)=>{
     e.preventDefault();
+    let row=document.createElement("tr");
     
-    let title=title_input.value;
-    let author=author_input.value;
-    let isbn=isbn_input.value;
-
-    function addRows(arr){
-        let tr=book_list.insertRow();
-        for(t of arr){
-            let td=tr.insertCell();
-            td.innerText=t;
-        }
-    }
-    let arr=[title,author,isbn];
-    addRows(arr)
-
     
+    row.innerHTML=`
+    <td>${title_input}</td>
+    <td>${author_input}</td>
+    <td>${isbn_input}</td>
+    <td><button class="delete btn btn-danger btn-sm">Clear</button></td>
+    `
+    book_list.appendChild(row);
 
-   
+    document.getElementById('title').value = '';
+    document.getElementById('author').value = '';
+    document.getElementById('isbn').value = '';
 
-
-
-
-
-    // console.log("a",title)
-
-    
+    row.document.querySelector(".delete").addEventListener("click",(e)=>{
+        book_list.removeChild(row)
+    })
 })
