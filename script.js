@@ -22,7 +22,7 @@ addBook.addEventListener("click",(e)=>{
     document.getElementById('author').value = '';
     document.getElementById('isbn').value = '';
 
-    row.document.querySelector(".delete").addEventListener("click",(e)=>{
+    document.querySelector(".delete").addEventListener("click",(e)=>{
         book_list.removeChild(row)
     })
 })
