@@ -11,7 +11,10 @@ document.getElementById("submit").addEventListener("click",(event)=>{
   if(!title || !author || !isbn){
     alert("Please fill in all fields");
   }
-  addEmployee(title, author, isbn);
+   else{
+
+      addEmployee(title, author, isbn);
+  }
 }) 
     
 
@@ -42,7 +45,7 @@ function displayEmployees() {
         <td>${employee.title}</td>
         <td>${employee.author}</td>
         <td>${employee.isbn}</td>    
-        <button onclick="deleteEmployee(${employee.id})">Delete</button>
+        <button onclick="deleteEmployee(${employee.id})">Clear</button>
         `;
         table.append(tr);
     });
