@@ -1,30 +1,49 @@
-document.getElementById('submit').addEventListener('click', function() {
-      const title = document.getElementById('title').value;
-      const author = document.getElementById('author').value;
-      const isbn = document.getElementById('isbn').value;
+let employees = [];
+let nextId = 1;
 
-      if(title === '' || author === '' || isbn === '') {
-        alert('Please fill in all fields');
-        return;
-      }
+document.getElementById("submit").addEventListener("click",(event)=>{
+  event.preventDefault();
+  const title = document.getElementById("title").value.trim();
+  const author = document.getElementById("author").value.trim();
+  const isbn = document.getElementById("isbn").value.trim();
+  
+  
+  if(!title || !author || !isbn){
+    alert("Please fill in all fields");
+  }
+  addEmployee(title, author, isbn);
+}) 
+    
 
-      const table = document.getElementById('book-list');
-      const row = document.createElement('tr');
+  function addEmployee(title, author, isbn) {
+    const employee = {
+        id: nextId++,
+        title: title,
+        author: author,
+        isbn: parseInt(isbn)
+    };
+    employees.push(employee);
+    displayEmployees();
+}
 
-      row.innerHTML = `
-        <td>${title}</td>
-        <td>${author}</td>
-        <td>${isbn}</td>
-        <td><button class="delete btn btn-danger btn-sm">Clear</button></td>
-      `;
+function deleteEmployee(id) {
+    employees = employees.filter(employee => employee.id !== id);
+    displayEmployees();
+}
 
-      table.appendChild(row);
+function displayEmployees() {
+  let table = document.getElementById("book-list");
+  table.innerHTML = '';
 
-      document.getElementById('title').value = '';
-      document.getElementById('author').value = '';
-      document.getElementById('isbn').value = '';
-
-      row.querySelector('.delete').addEventListener('click', function() {
-        table.removeChild(row);
-      });
+    employees.forEach(employee => {
+      
+      let tr = document.createElement('tr');
+        tr.innerHTML = `
+        <td>${employee.title}</td>
+        <td>${employee.author}</td>
+        <td>${employee.isbn}</td>    
+        <button onclick="deleteEmployee(${employee.id})">Delete</button>
+        `;
+        table.append(tr);
     });
+}
