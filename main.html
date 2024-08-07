@@ -1,38 +1,100 @@
 <!DOCTYPE html>
-
 <html>
 
 <head>
-	<link rel="stylesheet" href="styles.css">
-	 <title>MyBookList</title>
+	<title>MyBookList</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<style>
+		body {
+			padding: 20px;
+		}
+		h1 {
+			margin-bottom: 20px;
+		}
+		.delete {
+			cursor: pointer;
+		}
+	</style>
 </head>
 
 <body>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
-</script>
-<h1>MyBookList</h1>
+	<h1>MyBookList</h1>
+	<div class="form-group">
+		<input type="text" id="title" class="form-control" placeholder="Title">
+		<input type="text" id="author" class="form-control" placeholder="Author">
+		<input type="text" id="isbn" class="form-control" placeholder="ISBN">
+		<button id="submit" class="btn btn-primary mt-3">Submit</button>
+	</div>
 
-  <div class="form-group">
-    <input type="text" id="title" class="form-control" placeholder="Title">
-    <input type="text" id="author" class="form-control" placeholder="Author">
-    <input type="text" id="isbn" class="form-control" placeholder="ISBN">
-    <button id="submit" class="btn btn-primary mt-3">Submit</button>
-  </div>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Author</th>
+				<th>ISBN#</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody id="book-list">
+			<!-- Book list goes here -->
+		</tbody>
+	</table>
 
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Author</th>
-        <th>ISBN#</th>
-      </tr>
-    </thead>
-    <tbody id="book-list">
-      <!-- Book list goes here -->
-    </tbody>
-  </table>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		let books = [];
+		let nextId = 1;
+
+		document.getElementById("submit").addEventListener("click", (event) => {
+			event.preventDefault();
+			const title = document.getElementById("title").value.trim();
+			const author = document.getElementById("author").value.trim();
+			const isbn = document.getElementById("isbn").value.trim();
+
+			if (!title || !author || !isbn) {
+				alert("Please fill in all fields");
+			} else {
+				addBook(title, author, isbn);
+				document.getElementById("title").value = '';
+				document.getElementById("author").value = '';
+				document.getElementById("isbn").value = '';
+			}
+		});
+
+		function addBook(title, author, isbn) {
+			const book = {
+				id: nextId++,
+				title: title,
+				author: author,
+				isbn: isbn
+			};
+			books.push(book);
+			displayBooks();
+		}
+
+		function deleteBook(id) {
+			books = books.filter(book => book.id !== id);
+			displayBooks();
+		}
+
+		function displayBooks() {
+			let table = document.getElementById("book-list");
+			table.innerHTML = '';
+
+			books.forEach(book => {
+				let tr = document.createElement('tr');
+				tr.innerHTML = `
+					<td>${book.title}</td>
+					<td>${book.author}</td>
+					<td>${book.isbn}</td>
+					<td><button class="btn btn-danger delete" onclick="deleteBook(${book.id})">Clear</button></td>
+				`;
+				table.append(tr);
+			});
+		}
+	</script>
 </body>
 
 </html>
